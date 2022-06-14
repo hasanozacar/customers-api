@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema({
     maxlength: 1024,
     unique:true,
 
+  },
+  isAdmin: {
+    type: Boolean,
+    required: true,
+    minlength: 5,
+    maxlength: 1024,
+    unique:true,
+
   }
 });
 
