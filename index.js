@@ -12,19 +12,23 @@ const auth = require("./routes/auth");
 const error = require("./middleware/error");
 const express = require("express");
 
-
-process.on('uncaughtException',(ex)=>{
+winston.handleExeptions(
+  new winston.transports.File({ filename: "uncaughtException.log" })
+);
+process.on("uncaughtException", (ex) => {
   console.log("We got an un caught exeption");
-  winston.error(ex.message,ex)
-})
-
+  winston.error(ex.message, ex);
+});
 winston.add(winston.transports.File, { filename: "logfile.log" });
 winston.add(winston.transports.MongoDB, {
   db: "mongodb://localhost/vidly",
   level: "error",
 });
 
-throw new Error("Something failed during startup")
+throw new Error("Something failed during startup");
+
+const p = Promise.reject(new Error("Something failed miserably!"));
+p.then(() => console.log("Done"));
 
 const app = express();
 
