@@ -13,6 +13,10 @@ const error = require("./middleware/error");
 const express = require("express");
 
 
+process.on('uncaughtException',(ex)=>{
+  console.log("We got an un caught exeption");
+  winston.error(ex.message,ex)
+})
 
 winston.add(winston.transports.File, { filename: "logfile.log" });
 winston.add(winston.transports.MongoDB, {
